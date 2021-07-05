@@ -1,5 +1,6 @@
 # Primer Examen
 ## Integrantes:
-* Milagros Celia Cruz Mamani
-* Carolina Boniee Chavez Lopez
+* Shirley
 * Williams Fidel Nifla Catasi
+* Thales
+* Alejandra
