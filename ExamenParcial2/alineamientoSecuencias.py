@@ -1,5 +1,12 @@
 import numpy as np
 from Bio import SeqIO
+
+def fastatoString(archivoFasta):
+  sequences = SeqIO.parse(archivoFasta, "fasta")
+  for record in sequences:
+    data1 = str(record.seq.upper()) # the fasta file just have one sequence
+  return data1  
+
 ##ALINEAMIENTO GLOBAL - P6
 def Similitud(a,b,S,identicalMatch,mismatch):
   if (S == True):
@@ -17,15 +24,7 @@ def Similitud(a,b,S,identicalMatch,mismatch):
     else:
       return difmatch
 
-def convertir(archivoFasta):
-  sequences = SeqIO.parse(archivoFasta, "fasta")
-  for record in sequences:
-    data1 = str(record.seq.upper()) # the fasta file just have one sequence
-  return data1 
-
-def needleman_wunsch(archivoFasta1,archivoFasta2,Ss=False,match=0,mismatch=0,gap=0):
-  seq1=convertir(archivoFasta1)
-  seq2=convertir(archivoFasta2)
+def needleman_wunsch(seq1="",seq2="",Ss=False,match=0,mismatch=0,gap=0):
   print(seq1)
   print(seq2)
   len_seq1=len(seq1)
@@ -50,6 +49,7 @@ def needleman_wunsch(archivoFasta1,archivoFasta2,Ss=False,match=0,mismatch=0,gap
   alineamiento2=""
   i = len_seq1
   j = len_seq2
+  score = 0
   while i>0 and j>0:
     score=m_inicial[i][j]
     print("score",score)
@@ -85,5 +85,5 @@ def needleman_wunsch(archivoFasta1,archivoFasta2,Ss=False,match=0,mismatch=0,gap
     alineamiento2=seq2[j-1]+alineamiento2
     j-=1
 
-  print("m_inicial",m_inicial)
-  return '\n'.join([alineamiento1, alineamiento2])
+  #print("m_inicial",m_inicial)
+  return score,'\n'.join([alineamiento1, alineamiento2])

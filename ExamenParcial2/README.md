@@ -1,6 +1,6 @@
 # Primer Examen
 ## Integrantes:
-* Shirley
+* Shirley Oxa Cacya
 * Williams Fidel Nifla Catasi
-* Thales
-* Alejandra
+* Thales Panibra Mamani
+* Alejandra Bustinza Cornejo

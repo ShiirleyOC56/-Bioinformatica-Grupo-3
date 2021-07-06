@@ -207,22 +207,32 @@
     </div> 
 
     <div class="w3-container m2 w3-blue"> 
-
       <h2>Resultados</h2>
-      {% if alineamientoGlobal %}
-            <span  >{{alineamientoGlobal}}</span>
+    </div> 
+    <br>
+    <div class="w3-container m2 w3-green"> 
+      {% if scoreM and alineamientoGlobal %}
+          <div class="w3-container">
+            <label for="name">Score: </label>
+            <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{scoreM}}" disabled>
+            <br> <br>
+            <label for="name">Alineamientos: </label>
+            <br>
+            <textarea rows="10" cols="100" wrap="soft" disabled>{{alineamientoGlobal}}</textarea>
+            <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" size = "100" value="{{alineamientoGlobal}}" disabled>
+            
             <!--<img src="{{imaalineamientoGlobalgenThre}} " style="height:100%;"/>-->
            <br><br>
       {% else %}
-           <h1> </h1>
+           <h1>Hola</h1>
            <br><br>
       {% endif %}
-           
-    </div>  
+          </div>  
+    </div>
 
 </div>
 
-<div id="Contrast_Stretching" class="w3-container city w3-animate-opacity">
+<div id="AlineamientoLocal" class="w3-container city w3-animate-opacity">
   <h2>Contrast Stretching</h2>
  
 <div class="w3-container m2 w3-red"> 
@@ -258,7 +268,7 @@
 
 
 
-<div id="Contrast_Outlier" class="w3-container city w3-animate-opacity">
+<div id="BLAST" class="w3-container city w3-animate-opacity">
   <h2>Constrast Streching con Outlier </h2>
  
 <div class="w3-container m2 w3-red"> 
@@ -292,7 +302,7 @@
      
 </div>
 
-<div id="Histogram_Equalization" class="w3-container city w3-animate-opacity">
+<div id="AlineamientoMultiple" class="w3-container city w3-animate-opacity">
   <h2>Histogram Equalization</h2>
   
    <div class="w3-container m2 w3-red"> 
@@ -326,7 +336,7 @@
 
 </div>
 
-<div id="Exponential_Operator" class="w3-container city w3-animate-opacity">
+<div id="JukesCantorModel" class="w3-container city w3-animate-opacity">
   <h2>Exponential Operator</h2>
 <div class="w3-container m2 w3-red"> 
       <h2>Pre-Procesamiento</h2>
@@ -361,7 +371,7 @@
 
 
 
-<div id="Logarithm_Operator" class="w3-container city w3-animate-opacity">
+<div id="KimuraModel" class="w3-container city w3-animate-opacity">
   <h2>Logarithm Operator</h2>
 
     <div class="w3-container m2 w3-red"> 
@@ -399,7 +409,7 @@
 
 
 
-<div id="Raise_Power" class="w3-container city w3-animate-opacity">
+<div id="UPGMA" class="w3-container city w3-animate-opacity">
   <h2>Raise Power Operator</h2>
 <div class="w3-container m2 w3-red"> 
       <h2>Pre-Procesamiento</h2>
@@ -432,7 +442,7 @@
 </div>
 
 
-<div id="Root_Operator" class="w3-container city w3-animate-opacity">
+<div id="NeighborJoining" class="w3-container city w3-animate-opacity">
   <h2>Root Operator</h2>
    <div class="w3-container m2 w3-red"> 
       <h2>Pre-Procesamiento</h2>

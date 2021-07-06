@@ -1,6 +1,6 @@
 import os
 from procesamientoImagen import operador_raiz,threholding, operador_exponencial, operador_logaritmico, histogram_equalization, constrast_streching, constrast_streching_out, power_raise
-from alineamientoSecuencias import needleman_wunsch
+from alineamientoSecuencias import fastatoString,needleman_wunsch
 from flask import Flask, render_template
 from flask import url_for
 from flask import redirect  
@@ -126,16 +126,14 @@ def endPointAlineamientoGlobal():
         full_filename2 = os.path.join(app.config['UPLOAD_FOLDER'], filename2)
         secuencia2.save(full_filename2)
 
+        seq1 = fastatoString("./static/Fasta/"+filename1)
+        seq2 = fastatoString("./static/Fasta/"+filename2)
         gap = request.form['gapextend']
         match = request.form['match']
         mismatch = request.form['mismatch']
-        print("====================",filename1)
-        alineamiento = needleman_wunsch("./static/Fasta/"+filename1,"./static/Fasta/"+filename2,int(float(match)),int(float(mismatch)),int(float(gap)))
-        print("***********************CON EXITO*************************")
-        #filename= secure_filename(f.filename)
-        #return "<h1>Archivo subido exitosamente</h1>"
-        return  render_template('layout.html', alineamientoGlobal=alineamiento)
 
-    
+        score,alineamiento = needleman_wunsch(seq1,seq2,int(float(match)),int(float(mismatch)),int(float(gap)))
+        return  render_template('layout.html', alineamientoGlobal=alineamiento,scoreM=score)
+
 if __name__ == '__main__':
     app.run(debug=True)
