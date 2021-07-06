@@ -131,9 +131,9 @@ def endPointAlineamientoGlobal():
         gap = request.form['gapextend']
         match = request.form['match']
         mismatch = request.form['mismatch']
-
-        score,alineamiento = needleman_wunsch(seq1,seq2,int(float(match)),int(float(mismatch)),int(float(gap)))
-        return  render_template('layout.html', alineamientoGlobal=alineamiento,scoreM=score)
+        #alineamiento es un diccionario
+        alineamiento = needleman_wunsch(seq1,seq2,int(float(match)),int(float(mismatch)),int(float(gap)))
+        return  render_template('layout.html', dic=alineamiento)
 
 if __name__ == '__main__':
     app.run(debug=True)

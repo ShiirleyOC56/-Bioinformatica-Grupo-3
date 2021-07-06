@@ -24,9 +24,8 @@ def Similitud(a,b,S,identicalMatch,mismatch):
     else:
       return difmatch
 
-def needleman_wunsch(seq1="",seq2="",Ss=False,match=0,mismatch=0,gap=0):
-  print(seq1)
-  print(seq2)
+def needleman_wunsch(seq1,seq2,Ss=False,match=0,mismatch=0,gap=0):
+
   len_seq1=len(seq1)
   len_seq2=len(seq2)
   #creamos la matriz de ceros
@@ -44,14 +43,19 @@ def needleman_wunsch(seq1="",seq2="",Ss=False,match=0,mismatch=0,gap=0):
           t[2] = m_inicial[i+1,j] + gap
           tmax = np.max(t)
           m_inicial[i+1,j+1] = tmax
-    
+
+  # Trace through an optimal alignment.
+  
   alineamiento1=""
   alineamiento2=""
   i = len_seq1
   j = len_seq2
-  score = 0
+  score=0
+  dic = {}
+
   while i>0 and j>0:
     score=m_inicial[i][j]
+
     print("score",score)
     scoreDiag=m_inicial[i-1][j-1]
     print("scoreDiag",scoreDiag)
@@ -74,16 +78,24 @@ def needleman_wunsch(seq1="",seq2="",Ss=False,match=0,mismatch=0,gap=0):
       alineamiento2=seq2[j-1]+alineamiento2
       j-=1
     
+    dic[score]=(alineamiento1,alineamiento2)
+    #else:
+    #print("sdfsfsdf")
     print(alineamiento1[::-1])
     print(alineamiento2[::-1])
+
   while i>0:
     alineamiento1=seq1[i-1]+alineamiento1
     alineamiento2="-"+alineamiento2
     i-=1
+    dic[score]=(alineamiento1,alineamiento2)
   while j>0:
     alineamiento1="-"+alineamiento1
     alineamiento2=seq2[j-1]+alineamiento2
     j-=1
-
+    dic[score]=(alineamiento1,alineamiento2)
+  
+  return dic
+  #print(dic)
   #print("m_inicial",m_inicial)
-  return score,'\n'.join([alineamiento1, alineamiento2])
+  #return '\n'.join([alineamiento1, alineamiento2])

@@ -210,19 +210,19 @@
       <h2>Resultados</h2>
     </div> 
     <br>
-    <div class="w3-container m2 w3-green"> 
-      {% if scoreM and alineamientoGlobal %}
-          <div class="w3-container">
-            <label for="name">Score: </label>
-            <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{scoreM}}" disabled>
-            <br> <br>
-            <label for="name">Alineamientos: </label>
-            <br>
-            <textarea rows="10" cols="100" wrap="soft" disabled>{{alineamientoGlobal}}</textarea>
-            <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" size = "100" value="{{alineamientoGlobal}}" disabled>
-            
-            <!--<img src="{{imaalineamientoGlobalgenThre}} " style="height:100%;"/>-->
-           <br><br>
+    <div class="w3-container m2 w3-green">     
+      {% if dic %}
+        {% for k in dic.keys():%}
+          <label for="name">Score: </label>
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k}}" disabled>
+          {% set x = dic.get(k)%}
+          <br>
+          <label for="name">Alineamientos: </label>
+          <br>
+          <textarea rows="5" cols="100" wrap="soft" disabled>{{x[0]}}</textarea>
+          <textarea rows="5" cols="100" wrap="soft" disabled>{{x[1]}}</textarea>
+          <br>
+        {% endfor %}
       {% else %}
            <h1>Hola</h1>
            <br><br>
