@@ -82,7 +82,7 @@
  <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
 <h3> </h3><br>
-  <img src="{{url_for('static', filename='caro.png')}}" style="height:300px;"/>
+  <img src="{{url_for('static', filename='Thales.jpeg')}}" style="height:300px;"/>
   <h3>Thales Gonzalo Panibra Mamani</h3><br>
  
   </div>
@@ -90,7 +90,7 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
 <h3> </h3><br>
-  <img src="{{url_for('static', filename='mili.png')}}" style="height:300px;"/>
+  <img src="{{url_for('static', filename='alejandra.jpeg')}}" style="height:300px;"/>
   <h3>Alejandra Pamenla Bustinza Cornejo</h3><br>
  
   </div>
@@ -160,22 +160,22 @@
 
 <h2 class="w3-center">Algoritmos de alinemiento y generación de arboles filogenéticos.</h2>
 <div class="w3-border">
-<div class="w3-bar w3-theme">
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoGlobal')">Alineamiento global</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoLocal')">Alineamientolocal</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'BLAST')">BLAST</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoMultiple')">Alineamiento multiple</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'JukesCantorModel')">Jukes-cantor model</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'KimuraModel')">Kimura model</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'UPGMA')">UPGMA</button>
-  <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'NeighborJoining')">Neighbor joining</button>
-</div>
-<div id="AlineamientoGlobal" class="w3-container city w3-animate-opacity">
-  <h2>Alineamiento global(Needleman-Wunsch)</h2>
+  <div class="w3-bar w3-theme">
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoGlobal')">Alineamiento global</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoLocal')">Alineamiento local</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'BLAST')">BLAST</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoMultiple')">Alineamiento multiple</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'JukesCantorModel')">Jukes-cantor model</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'KimuraModel')">Kimura model</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'UPGMA')">UPGMA</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'NeighborJoining')">Neighbor joining</button>
+  </div>
+  <div id="AlineamientoGlobal" class="w3-container city w3-animate-opacity">
+    <h2>Alineamiento global(Needleman-Wunsch)</h2>
     <div class="w3-container m2 w3-green"> 
-      <h2>Pre-Procesamiento</h2>
+      <h2>Procesamiento</h2>
 
-        <form action="/AlineamientoGlobal" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
+      <form action="/AlineamientoGlobal" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
         <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
         <input type="file" name="archivo1" class="w3-button w3-theme"  >
         <br> <br>   
@@ -195,8 +195,6 @@
         <label for="name">Match: </label>
         <input type="number" name="match" class="w3-button w3-theme" >
         <br> <br>
-
-        
 
         <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarThresholding')"> <br><br>
         <div class="w3-light-blue">
@@ -227,127 +225,184 @@
            <h1>Hola</h1>
            <br><br>
       {% endif %}
-          </div>  
-    </div>
+    </div>  
+  </div>
 
 </div>
 
 <div id="AlineamientoLocal" class="w3-container city w3-animate-opacity">
-  <h2>Contrast Stretching</h2>
- 
-<div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
-       <form action="/contrastre" method="POST" enctype="multipart/form-data">
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
-        <br> <br>   
+  <h2>Alineamiento Local (Smith-Waterman)</h2>
+  <div class="w3-container m2 w3-green"> 
+    <h2>Procesamiento</h2>
+    <form action="/AlineamientoLocal" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
+      
+      <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
+      <input type="file" name="archivo3" class="w3-button w3-theme"  >
+      <br> <br>   
 
-        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarcontraste')"> <br><br>
-        <div class="w3-light-blue">
+      <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
+      <input type="file" name="archivo4" class="w3-button w3-theme"  >
+      <br> <br>
+
+      <label for="name">Gap Extend: </label>
+      <input type="number" name="gapextend2" class="w3-button w3-theme" >
+      <br> <br>
+
+      <label for="name">Mismatch: </label>
+      <input type="number" name="mismatch2" class="w3-button w3-theme" >
+      <br> <br>
+
+      <label for="name">Match: </label>
+      <input type="number" name="match2" class="w3-button w3-theme" >
+      <br> <br>   
+
+      <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarcontraste')"> <br><br>
+      <div class="w3-light-blue">
         <div id="myBarcontraste" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
-        </div>
-        <br> <br> 
-      </form>
-    </div> 
-
-    <div class="w3-container m2 w3-blue"> 
-
-      <h2>Resultados</h2>
-      {% if imagenContraste %}
-            <img src="{{imagenContraste}} " style="height:100%;"/>
-           <br><br>
+      </div>
+      <br> <br> 
+    </form>
+  </div> 
+  <div class="w3-container m2 w3-blue"> 
+    <h2>Resultados</h2>
+  </div>
+  <br>
+    <div class="w3-container m2 w3-green">     
+      {% if dic %}
+        {% for k in dic.keys():%}
+          <label for="name">Score: </label>
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k}}" disabled>
+          {% set x = dic.get(k)%}
+          <br>
+          <label for="name">Alineamientos: </label>
+          <br>
+          <textarea rows="5" cols="100" wrap="soft" disabled>{{x[0]}}</textarea>
+          <textarea rows="5" cols="100" wrap="soft" disabled>{{x[1]}}</textarea>
+          <br>
+        {% endfor %}
       {% else %}
-           <h1> </h1>
+           <h1>Hola</h1>
            <br><br>
       {% endif %}
-           
-    </div>  
-
-     
+    </div> 
 </div>
 
 
 
 <div id="BLAST" class="w3-container city w3-animate-opacity">
-  <h2>Constrast Streching con Outlier </h2>
+  <h2>BLAST </h2>
  
-<div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
-       <form action="/contrasTreO" method="POST" enctype="multipart/form-data">
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
-        <br> <br>   
+  <div class="w3-container m2 w3-green"> 
+    <h2>Procesamiento</h2>
+    <form action="/BLAST" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
 
-        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('Bar_Contrast_Outlier')"> <br><br>
-        <div class="w3-light-blue">
-        <div id="Bar_Contrast_Outlier" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
-        </div>
-        <br> <br> 
-      </form>
-    </div> 
+      <h4>Cargar archivos ".fasta" para la base de datos:</h4>
+      <input type="file" name="archivo5" class="w3-button w3-theme"  >
+      <br> <br>
+      <input type="file" name="archivo6" class="w3-button w3-theme"  >
+      <br> <br>
+      <input type="file" name="archivo7" class="w3-button w3-theme"  >
+      <br> <br>
+      <input type="file" name="archivo8" class="w3-button w3-theme"  >
+      <br> <br>
+      <input type="file" name="archivo9" class="w3-button w3-theme"  >
+      <br> <br>
 
-    <div class="w3-container m2 w3-blue"> 
+      <h4>Cargar archivo ".fasta" para comparar:</h4>
+      <input type="file" name="archivo10" class="w3-button w3-theme"  >
+      <br> <br>
 
-      <h2>Resultados</h2>
-      {% if imagenendPct %}
-            <img src="{{imagenendPct}} " style="height:100%;"/>
-           <br><br>
-      {% else %}
-           <h1> </h1>
-           <br><br>
-      {% endif %}
-           
-    </div>  
+      <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarcontraste')"> <br><br>
+      <div class="w3-light-blue">
+        <div id="myBarcontraste" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
+      </div>
+      <br> <br> 
+    </form>
+  </div> 
 
-     
+  <div class="w3-container m2 w3-blue"><h2>Resultados</h2></div>
+  <br>
+  <div class="w3-container m2 w3-green">     
+    {% if dic %}
+      {% for k in dic.keys():%}
+        <label for="name">Score Final: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k}}" disabled><br>
+        {% set x = dic.get(k)%}
+        <!--#x=["triplete inicial","secuencia","cad1","cadi"]-->
+        <label for="name">Triplete inicial analizado: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{x[0]}}" disabled><br>
+        <label for="name">Secuencia coincidente: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{x[1]}}" disabled><br>
+        <label for="name">Secuecia alineada 1: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{x[2]}}" disabled><br>
+        <label for="name">Secuencia alineada 2: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{x[3]}}" disabled><br>
+        <br>
+        <br>
+      {% endfor %}
+    {% else %}
+          <h1>Hola</h1>
+          <br><br>
+    {% endif %}
+  </div>
+
 </div>
 
 <div id="AlineamientoMultiple" class="w3-container city w3-animate-opacity">
-  <h2>Histogram Equalization</h2>
-  
-   <div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
-      <form action="/histEquali" method="POST" enctype="multipart/form-data">
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
-        <br> <br>   
+  <h2>Alineamiento MUSCLE</h2>  
+  <div class="w3-container m2 w3-green"> 
+    <h2>Procesamiento</h2>
+    <form action="/Muscle" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
 
-        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarq')"> <br><br>
-        <div class="w3-light-blue">
-        <div id="myBarq" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
-        </div>
-        <br> <br> 
-      </form>
-    </div> 
+      <h4>Cargar archivo sin alinear ".fasta":</h4>
+      <input type="file" name="archivo11" class="w3-button w3-theme"  >
+      <br> <br>
+      
+      <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('mymuscle')"> <br><br>
+      <div class="w3-light-blue">
+        <div id="mymuscle" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
+      </div>
+      <br> <br> 
+    </form>
+  </div>
 
-    <div class="w3-container m2 w3-blue"> 
-
-      <h2>Resultados</h2>
-      {% if imagenq %}
-            <img src="{{imagenq}} " style="height:100%;"/>
-           <br><br>
-      {% else %}
-           <h1> </h1>
-           <br><br>
-      {% endif %}
-           
-    </div>  
+  <div class="w3-container m2 w3-blue"><h2>Resultados</h2></div>
+  <br>
+  <div class="w3-container m2 w3-green">     
+    {% if arr %}
+      {% for k in arr:%}
+        <label for="name">Secuencia 1: </label>
+        <input type="number" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[0]}}" disabled><br>
+        <!--#x=["triplete inicial","secuencia","cad1","cadi"]-->
+        <label for="name">Secuencia 2: </label>
+        <input type="number" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[1]}}" disabled><br>
+        <label for="name">Distancia: </label>
+        <input type="number" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[2]}}" disabled><br>
+        <br>
+        <br>
+      {% endfor %}
+    {% else %}
+          <h1>Hola</h1>
+          <br><br>
+    {% endif %}
+  </div>  
 
 
 </div>
 
 <div id="JukesCantorModel" class="w3-container city w3-animate-opacity">
-  <h2>Exponential Operator</h2>
-<div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
+  <h2>Jukes Cantor Model</h2>
+<div class="w3-container m2 w3-green"> 
+      <h2>Procesamiento</h2>
 
-       <form action="/exponencial" method="POST" enctype="multipart/form-data">
+       <form action="/JukesCantor" method="POST" enctype="multipart/form-data">
         
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
-        <br> <br>   
-        <h4> Ingrese un valor de C: </h4><input type="number" id="C" name="C"><br> <br> 
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivo12" class="w3-button w3-theme"  >
+        <br> <br>
+        
         <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBare')"> <br><br>
+        
         <div class="w3-light-blue">
         <div id="myBare" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
         </div>
@@ -358,28 +413,40 @@
     <div class="w3-container m2 w3-blue"> 
 
       <h2>Resultados</h2>
-      {% if imagenE %}
-            <img src="{{imagenE}} " style="height:100%;"/>
-           <br><br>
+      {% if arr %}
+        {% for k in arr:%}
+          <label for="name">Secuencia 1: </label>
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[0]}}" disabled><br>
+          <!--#x=["triplete inicial","secuencia","cad1","cadi"]-->
+          <label for="name">Secuencia 2: </label>
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[1]}}" disabled><br>
+          <label for="name">Distancia: </label>
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k[2]}}" disabled><br>
+          <br>
+          <br>
+        {% endfor %}
       {% else %}
-           <h1> </h1>
-           <br><br>
+            <h1>Hola</h1>
+            <br><br>
       {% endif %}
-           
+            
     </div> 
 </div>
 
 
 
 <div id="KimuraModel" class="w3-container city w3-animate-opacity">
-  <h2>Logarithm Operator</h2>
+  <h2>Kimura model</h2>
 
-    <div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
-      <form action="/logaritmico" method="POST" enctype="multipart/form-data">
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
+    <div class="w3-container m2 w3-green"> 
+      <h2>Procesamiento</h2>
+      <form action="/KimuraModel" method="POST" enctype="multipart/form-data">
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoA" class="w3-button w3-theme"  >
         <br> <br>   
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoB" class="w3-button w3-theme"  >
+        <br> <br>
 
         <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBar')"> <br><br>
         <div class="w3-light-blue">
@@ -392,29 +459,24 @@
     <div class="w3-container m2 w3-blue"> 
 
       <h2>Resultados</h2>
-      {% if imagenL %}
-            <img src="{{imagenL}} " style="height:100%;"/>
-           <br><br>
+      {% if distance %}
+        <label for="name">Distancia entre las secuencias: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{distance}}" disabled>
       {% else %}
-           <h1> </h1>
-           <br><br>
+            <h1>:D</h1>
+            <br><br>
       {% endif %}
            
     </div> 
 </div>
 
 
-
-
-
-
-
 <div id="UPGMA" class="w3-container city w3-animate-opacity">
-  <h2>Raise Power Operator</h2>
+  <h2>UPGMA</h2>
 <div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
+      <h2>Procesamiento</h2>
 
-       <form action="/power" method="POST" enctype="multipart/form-data">     
+       <form action="/UPGMA" method="POST" enctype="multipart/form-data">     
         <h4>Cargar una imágen desde un archivo:</h4>
         <input type="file" name="archivo" class="w3-button w3-theme"  >
         <br> <br>   
@@ -443,10 +505,10 @@
 
 
 <div id="NeighborJoining" class="w3-container city w3-animate-opacity">
-  <h2>Root Operator</h2>
+  <h2>Neighbor Joining</h2>
    <div class="w3-container m2 w3-red"> 
       <h2>Pre-Procesamiento</h2>
-      <form action="/raiz" method="POST" enctype="multipart/form-data">
+      <form action="/NeighborJoining" method="POST" enctype="multipart/form-data">
         <h4>Cargar una imágen desde un archivo:</h4>
         <input type="file" name="archivo" class="w3-button w3-theme"  >
         <br> <br>   
