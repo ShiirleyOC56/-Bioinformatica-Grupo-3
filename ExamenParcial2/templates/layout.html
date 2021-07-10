@@ -140,7 +140,30 @@
     <p>El modelo de dos parámetros de Kimura (K2P) (Kimura 1980 ) es probablemente el más utilizado de todos los modelos de sustitución de nucleótidos para estimar diferencias genéticas (generalmente llamadas distancias genéticas) y relaciones filogenéticas. No hace falta decir que los modelos precisos para la evolución de secuencias moleculares son muy importantes. Sin embargo, la razón por la que el modelo K2P se usa en exceso en estudios evolutivos y en estudios de códigos de barras de ADN no es porque el modelo K2P sea el modelo más preciso, sino probablemente porque muchos autores lo han usado, o porque es el predeterminado de varios paquetes para análisis filogenéticos.</p>
   </div>
 </div>
-<button onclick="myAccFunc('Demo7')" class="w3-padding-16 w3-theme w3-button w3-block w3-left-align">UPGMA</button>
+<button onclick="myAccFunc('Demo7')" class="w3-padding-16 w3-theme w3-button w3-block w3-left-align">Tamura-Nei model</button>
+<div id="Demo6" class="w3-hide">
+  <div class="w3-container">
+    <p>El modelo de Tamura-Nei ( 1993 ) corrige múltiples aciertos, teniendo en cuenta las diferencias en la tasa de sustitución entre nucleótidos y la desigualdad de frecuencias de nucleótidos. Distingue entre tasas de sustitución transitorias entre purinas y tasas de sustitución transversales entre pirimidinas . También asume igualdad de tasas de sustitución entre sitios.</p>
+    <p>Tamura distance = -C log( 1 - P/C - Q ) - 0.5( 1 - C )log( 1 - 2Q )</p>
+      <p>Donde:</p>
+      <p>P = Frecuencia de transición</p>
+      <p>Q = Frecuencia de conversión</p>
+      <p>C = GC1 + GC2 - 2 * GC1 * GC2</p>
+      <p>GC1 = Contenido de GC de la secuencia 1</p>
+      <p>GC2 = Contenido GC de la secuencia 2</p>
+  </div>
+</div>
+<button onclick="myAccFunc('Demo8')" class="w3-padding-16 w3-theme w3-button w3-block w3-left-align">Tajima-Nei model</button>
+<div id="Demo6" class="w3-hide">
+  <div class="w3-container">
+    <p>La distancia Tajima-Nei ( Tajima y Nei 1984 ) da una mejor estimación del número de sustituciones de nucleótidos que la distancia Jukes-Cantor. Tenga en cuenta que esto supone una igualdad de las tasas de sustitución entre los sitios y entre transitorios y transversional sustituciones.</p>
+    <p>Kimura 2-Parameter distance = -0.5 log( (1 - 2p -q) * sqrt( 1 - 2q ) )</p>
+    <p>Donde:</p>
+    <p>p = transition frequency</p>
+    <p>q = transversion frequency</p>
+  </div>
+</div>
+<button onclick="myAccFunc('Demo9')" class="w3-padding-16 w3-theme w3-button w3-block w3-left-align">UPGMA</button>
 <div id="Demo7" class="w3-hide">
   <div class="w3-container">
     <p>UPGMA es un método de clustering (clasificación) que se basa en la identificación de las parejas más similares y en el cálculo de la media de las distancias entre ellas y el resto de las secuencias para reconstruir el árbol. Resulta conveniente usarlo solo si se cumple la hipótesis del reloj molecular (todas las secuencias han evolucionado a la misma velocidad) dado que genera árboles ultramétricos.</p>
@@ -167,6 +190,8 @@
     <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'AlineamientoMultiple')">Alineamiento multiple</button>
     <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'JukesCantorModel')">Jukes-cantor model</button>
     <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'KimuraModel')">Kimura model</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'TamuraModel')">Tamura-Nei model</button>
+    <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'TajimaModel')">Tajima-Nei model</button>
     <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'UPGMA')">UPGMA</button>
     <button class="w3-bar-item w3-button testbtn w3-padding-16" onclick="openCity(event,'NeighborJoining')">Neighbor joining</button>
   </div>
@@ -177,23 +202,20 @@
 
       <form action="/AlineamientoGlobal" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
         <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
-        <input type="file" name="archivo1" class="w3-button w3-theme"  >
-        <br> <br>   
-
+        <input type="file" name="archivo1" class="w3-button w3-theme"> <p class="text-center">o</p> <input type="text" name="entrada1"  placeholder="AAACCTT" class="w3-button w3-theme"  >
         <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
-        <input type="file" name="archivo2" class="w3-button w3-theme"  >
-        <br> <br>
-
-        <label for="name">Gap Extend: </label>
-        <input type="number" name="gapextend" class="w3-button w3-theme" >
-        <br> <br>
-
-        <label for="name">Mismatch: </label>
-        <input type="number" name="mismatch" class="w3-button w3-theme" >
+        <input type="file" name="archivo2" class="w3-button w3-theme"  > <p class="text-center">o</p> <input type="text" name="entrada2"  placeholder="AAACCTT" class="w3-button w3-theme"  >
+        
         <br> <br>
 
         <label for="name">Match: </label>
         <input type="number" name="match" class="w3-button w3-theme" >
+        
+        <label for="name">Mismatch: </label>
+        <input type="number" name="mismatch" class="w3-button w3-theme" >
+        
+        <label for="name">Gap Extend: </label>
+        <input type="number" name="gapextend" class="w3-button w3-theme" >
         <br> <br>
 
         <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarThresholding')"> <br><br>
@@ -209,11 +231,11 @@
     </div> 
     <br>
     <div class="w3-container m2 w3-green">     
-      {% if dic %}
-        {% for k in dic.keys():%}
+      {% if tupla :%}
+        {% for subtuplas in tupla:%}
+          {% set x = subtuplas %}
           <label for="name">Score: </label>
-          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{k}}" disabled>
-          {% set x = dic.get(k)%}
+          <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{x[4]}}" disabled>
           <br>
           <label for="name">Alineamientos: </label>
           <br>
@@ -236,22 +258,19 @@
     <h2>Procesamiento</h2>
     <form action="/AlineamientoLocal" method="POST" enctype="multipart/form-data" class="form-inline" role="form">
       
-      <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
-      <input type="file" name="archivo3" class="w3-button w3-theme"  >
-      <br> <br>   
+      <h5>Cargar secuencia ".fasta" desde carpeta:</h5>
+      <input type="file" name="archivo3" class="w3-button w3-theme"  ><p class="text-center">o</p> <input type="text" name="entrada3"  placeholder="AAACCTT" class="w3-button w3-theme">
 
-      <h4>Cargar secuencia ".fasta" desde carpeta:</h4>
-      <input type="file" name="archivo4" class="w3-button w3-theme"  >
+      <h5>Cargar secuencia ".fasta" desde carpeta:</h5>
+      <input type="file" name="archivo4" class="w3-button w3-theme"><p class="text-center">o</p> <input type="text" name="entrada4"  placeholder="AAACCTT" class="w3-button w3-theme">
       <br> <br>
 
       <label for="name">Gap Extend: </label>
       <input type="number" name="gapextend2" class="w3-button w3-theme" >
-      <br> <br>
-
+      
       <label for="name">Mismatch: </label>
       <input type="number" name="mismatch2" class="w3-button w3-theme" >
-      <br> <br>
-
+    
       <label for="name">Match: </label>
       <input type="number" name="match2" class="w3-button w3-theme" >
       <br> <br>   
@@ -267,7 +286,7 @@
     <h2>Resultados</h2>
   </div>
   <br>
-    <div class="w3-container m2 w3-green">     
+    <div class="w3-container m2 w3-green">
       {% if dic %}
         {% for k in dic.keys():%}
           <label for="name">Score: </label>
@@ -283,7 +302,7 @@
       {% else %}
            <h1>Hola</h1>
            <br><br>
-      {% endif %}
+      {% endif %}     
     </div> 
 </div>
 
@@ -470,20 +489,22 @@
     </div> 
 </div>
 
+<div id="TamuraModel" class="w3-container city w3-animate-opacity">
+  <h2>Tamura-Nei model</h2>
 
-<div id="UPGMA" class="w3-container city w3-animate-opacity">
-  <h2>UPGMA</h2>
-<div class="w3-container m2 w3-red"> 
+    <div class="w3-container m2 w3-green"> 
       <h2>Procesamiento</h2>
-
-       <form action="/UPGMA" method="POST" enctype="multipart/form-data">     
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
+      <form action="/TamuraModel" method="POST" enctype="multipart/form-data">
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoAA" class="w3-button w3-theme"  >
         <br> <br>   
-        <h4> Ingrese un valor de C: </h4><input type="number" id="b" name="b"><br> <br> 
-        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBareRP')"> <br><br>
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoBB" class="w3-button w3-theme"  >
+        <br> <br>
+
+        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBar')"> <br><br>
         <div class="w3-light-blue">
-        <div id="myBareRP" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
+        <div id="myBar" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
         </div>
         <br> <br> 
       </form>
@@ -492,11 +513,97 @@
     <div class="w3-container m2 w3-blue"> 
 
       <h2>Resultados</h2>
-      {% if imagenRaisePower %}
-            <img src="{{imagenRaisePower}} " style="height:100%;"/>
-           <br><br>
+      {% if distanceT %}
+        <label for="name">Distancia entre las secuencias: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{distanceT}}" disabled>
       {% else %}
-           <h1> </h1>
+            <h1>:D</h1>
+            <br><br>
+      {% endif %}
+           
+    </div> 
+</div>
+
+<div id="TajimaModel" class="w3-container city w3-animate-opacity">
+  <h2>Tajima model</h2>
+    <div class="w3-container m2 w3-green"> 
+      <h2>Procesamiento</h2>
+      <form action="/TajimaModel" method="POST" enctype="multipart/form-data">
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoAAA" class="w3-button w3-theme"  >
+        <br> <br>   
+        <h4>Cargar archivo ".fasta" :</h4>
+        <input type="file" name="archivoBBB" class="w3-button w3-theme"  >
+        <br> <br>
+
+        <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBar')"> <br><br>
+        <div class="w3-light-blue">
+        <div id="myBar" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
+        </div>
+        <br> <br> 
+      </form>
+    </div> 
+
+    <div class="w3-container m2 w3-blue"> 
+
+      <h2>Resultados</h2>
+      {% if distanceTj %}
+        <label for="name">Distancia entre las secuencias: </label>
+        <input type="text" name="timePunchIn" class="timePunch timefield timeIn" id="timePunchIn" value="{{distanceTj}}" disabled>
+      {% else %}
+            <h1>:D</h1>
+            <br><br>
+      {% endif %}
+           
+    </div> 
+</div>
+
+<div id="UPGMA" class="w3-container city w3-animate-opacity">
+  <h2>UPGMA</h2>
+<div class="w3-container m2 w3-green"> 
+      <h2>Procesamiento</h2>      
+      
+      <form name="matriza" action="/UPGMA" method="POST" enctype="multipart/form-data">
+        <h4>Cargar la matriz de distancias:</h4>
+        <BR> 
+          <input type="number" name ="parametro1" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro2" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro3" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro4" style="width: 3em;" value="0" disabled>
+        <BR>
+          <input type="number" name ="parametro5" style="width: 3em;">
+          <input type="number" name ="parametro6" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro7" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro8" style="width: 3em;" value="0" disabled>
+        <BR>
+          <input type="number" name ="parametro9" style="width: 3em;">
+          <input type="number" name ="parametro10" style="width: 3em;">
+          <input type="number" name ="parametro11" style="width: 3em;" value="0" disabled>
+          <input type="number" name ="parametro12" style="width: 3em;" value="0" disabled>
+        <BR>
+          <input type="number" name ="parametro13" style="width: 3em;">
+          <input type="number" name ="parametro14" style="width: 3em;">
+          <input type="number" name ="parametro15" style="width: 3em;">
+          <input type="number" name ="parametro16" style="width: 3em;"value="0" disabled>
+          <br><br>
+          <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBareRP')"> <br><br>
+          <div class="w3-light-blue">
+            <div id="myBareRP" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
+          </div>
+        </form>
+        
+    </div> 
+
+    <div class="w3-container m2 w3-blue"> 
+
+      <h2>Resultados</h2>
+      {% if up or  img%}
+      <label for="name">Formato Newick de representación de árbol: </label>
+      <p>{{up}}</p>
+      <label for="name">Árbol filogenético: </label>
+      <img src="{{img}} " style="height:100%;"/>
+      {% else %}
+           <h1> hola</h1>
            <br><br>
       {% endif %}
            
@@ -506,13 +613,18 @@
 
 <div id="NeighborJoining" class="w3-container city w3-animate-opacity">
   <h2>Neighbor Joining</h2>
-   <div class="w3-container m2 w3-red"> 
-      <h2>Pre-Procesamiento</h2>
+   <div class="w3-container m2 w3-green"> 
+      <h2>Procesamiento</h2>
       <form action="/NeighborJoining" method="POST" enctype="multipart/form-data">
-        <h4>Cargar una imágen desde un archivo:</h4>
-        <input type="file" name="archivo" class="w3-button w3-theme"  >
-        <br> <br>   
-
+        <h4>Cargar la matriz de distancias:</h4>
+        <input type="file" name="archivotxt" class="w3-button w3-theme"  >
+        <br><br>
+        <label for="name">n: </label>
+        <input type="number" name="nn" class="w3-button w3-theme" >
+      
+        <label for="name">L: </label>
+        <input type="number" name="ll" class="w3-button w3-theme" >
+        <br> <br>
         <input type="submit" class="w3-button w3-theme" value="Run" onclick="move('myBarr')"> <br><br>
         <div class="w3-light-blue">
         <div id="myBarr" class="w3-center w3-padding w3-theme" style="width:5%">5%</div>
@@ -524,7 +636,7 @@
     <div class="w3-container m2 w3-blue"> 
 
       <h2>Resultados</h2>
-      {% if imagenR %}
+      {% if imagenR  %}
             <img src="{{imagenR}} " style="height:100%;"/>
            <br><br>
       {% else %}
@@ -534,22 +646,7 @@
            
     </div> 
 </div>
-
-
-
 </div>
-
-
- 
- 
- 
- 
-
- 
-
-
- 
-
 </div>
  
 <h3> </h3> <br>

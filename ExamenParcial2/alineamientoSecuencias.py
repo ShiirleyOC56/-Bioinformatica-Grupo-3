@@ -3,6 +3,10 @@ from Bio import SeqIO
 from itertools import product
 import os, glob
 from math import log, sqrt
+os.environ['QT_QPA_PLATFORM']='offscreen'
+from ete3 import Tree
+from IPython.display import display, Image
+from math import log
 
 def fastatoString(archivoFasta):
   sequences = SeqIO.parse(archivoFasta, "fasta")
@@ -27,7 +31,7 @@ def Similitud(a,b,S,identicalMatch,mismatch):
     else:
       return difmatch
 
-def needleman_wunsch(seq1,seq2,Ss=False,match=0,mismatch=0,gap=0):
+"""def needleman_wunsch(seq1,seq2,Ss=False,match=0,mismatch=0,gap=0):
 
   len_seq1=len(seq1)
   len_seq2=len(seq2)
@@ -101,7 +105,133 @@ def needleman_wunsch(seq1,seq2,Ss=False,match=0,mismatch=0,gap=0):
   return dic
   #print(dic)
   #print("m_inicial",m_inicial)
-  #return '\n'.join([alineamiento1, alineamiento2])
+  #return '\n'.join([alineamiento1, alineamiento2])"""
+def needleman_wunsch1(seq1,seq2,match,mismatch,gap,S=False):
+  len_seq1=len(seq1)
+  len_seq2=len(seq2)
+  print("-------EN funcion-----------")
+  print(match)
+  print(mismatch)
+  print(gap)
+  #creamos la matriz de ceros
+  m_inicial=np.zeros((len_seq1+1,len_seq2+1))
+  #Llenamos la primera fila y la primera columna de acuerdo al gap
+  m_inicial[:,0] = np.linspace(0,len_seq1*gap,len_seq1 + 1)
+  m_inicial[0,:] = np.linspace(0,len_seq2*gap,len_seq2 + 1)
+
+  # Scores temporales
+  t = np.zeros(3)
+  for i in range(len_seq1):
+      for j in range(len_seq2):
+          t[0]=m_inicial[i,j]+Similitud(seq1[i],seq2[j],S,match,mismatch)          
+          t[1] = m_inicial[i,j+1] + gap
+          t[2] = m_inicial[i+1,j] + gap
+          tmax = np.max(t)
+          m_inicial[i+1,j+1] = tmax
+
+  # Trace through an optimal alignment.
+  
+  alineamiento1=""
+  alineamiento2=""
+  i = len_seq1
+  j = len_seq2
+  score=m_inicial[i][j]
+  alineamientos=[("","",i,j,score)]
+  dic = {}
+  print(m_inicial)
+  while alineamientos[0][2]>0 and alineamientos[0][3]>0:
+    
+    for ali in range(len(alineamientos)):
+
+      tupla=alineamientos[ali]
+
+      alineamiento1=tupla[0]
+      alineamiento2=tupla[1]
+      i = tupla[2]
+      j = tupla[3]
+      #print(i,"i")
+      #print(j,"j")
+
+      score=m_inicial[i][j]
+
+      #print("score",score)
+      scoreDiag=m_inicial[i-1][j-1]
+      #print("scoreDiag",scoreDiag)
+      scoreUp=m_inicial[i-1][j]
+      #print("scoscoreUpre",scoreUp)
+      scoreLeft=m_inicial[i][j-1]
+      #print("scoreLeft",scoreLeft)
+
+      sipi=False
+      minimo=(scoreDiag + Similitud(seq1[i-1],seq2[j-1],S,match,mismatch))
+      #print(minimo,"minimodiag")
+      #print(str(scoreLeft + gap),"minimoleft")
+      #print(str(scoreUp+gap),"minimoup")
+
+      if (scoreLeft + gap)> minimo:
+        minimo=(scoreLeft + gap)
+
+      if (scoreUp+gap)>minimo:
+        minimo=(scoreUp+gap)
+      #print(minimo,"minimoFINAL")
+
+
+      if minimo==(scoreDiag + Similitud(seq1[i-1],seq2[j-1],S,match,mismatch)):
+        nuevo=(seq1[i-1]+alineamiento1,seq2[j-1]+alineamiento2,i-1,j-1,tupla[4])
+        #print("DIAGONAL")
+        if (sipi==False):
+          alineamientos[ali]=nuevo
+          sipi=True
+        else:
+          alineamientos.append(nuevo)
+      if minimo==(scoreLeft + gap):
+        nuevo=(seq1[i-1]+alineamiento1,"-"+alineamiento2,i-1,j,tupla[4])
+        #print("No diagonal")
+        if (sipi==False):
+          alineamientos[ali]=nuevo
+          sipi=True
+        else:
+          alineamientos.append(nuevo)
+        
+      if minimo==(scoreUp+gap):
+        nuevo=("-"+alineamiento1,seq2[j-1]+alineamiento2,i,j-1,tupla[4])
+        #print("No diagonal")
+        if (sipi==False):
+          alineamientos[ali]=nuevo
+          sipi=True
+        else:
+          alineamientos.append(nuevo)
+    
+    #dic[score]=(alineamiento1,alineamiento2)
+    #else:
+    #print("sdfsfsdf")
+    #print(alineamiento1[::-1])
+    #print(alineamiento2[::-1])
+  
+
+  for ali in range(len(alineamientos)):
+
+    tupla=alineamientos[ali]
+
+    alineamiento1=tupla[0]
+    alineamiento2=tupla[1]
+    i = tupla[2]
+    j = tupla[3]
+    while i>1:
+      alineamiento1=seq1[i-1]+alineamiento1
+      alineamiento2="-"+alineamiento2
+      i-=1
+      #dic[score]=(alineamiento1,alineamiento2)
+    while j>1:
+      alineamiento1="-"+alineamiento1
+      alineamiento2=seq2[j-1]+alineamiento2
+      j-=1
+      #dic[score]=(alineamiento1,alineamiento2)
+    
+      #print("m_inicial",m_inicial)
+    nuevo=(alineamiento1,alineamiento2,i,j,tupla[4])
+    alineamientos[ali]=nuevo
+  return alineamientos
 
 # PRACTICA 7
 def crear_matriz(n,m):
@@ -134,7 +264,7 @@ def finalize(align1, align2,Ss,identicalMatch,mismatch,gap):
     print (align2)"""
     return dic
 
-def sw(seq1,seq2,Ss = False,gapcost=0,identicalMatch=0,mismatch=0):
+def sw(seq1,seq2,gapcost,identicalMatch,mismatch,Ss = False):
   lens1=len(seq1)
   lens2=len(seq2)
   #creamos la matriz de ceros
@@ -216,6 +346,7 @@ def sw(seq1,seq2,Ss = False,gapcost=0,identicalMatch=0,mismatch=0):
   """print ("Score = ", score)
   print (align1)
   print (align2)"""
+  print(dic)
   return dic
 
 #BLAST-
@@ -498,6 +629,235 @@ def K2Pdistance(seq1,seq2):
     q = float(tv_count) / length
     try: d = -0.5 * log( (1 - 2*p - q) * sqrt( 1 - 2*q ) )
     except ValueError: 
-        print ("Tried to take log of a negative number")
         return None
     return d 
+
+#TAMURA DISTANCE
+def Tamuradistance(seq1,seq2):
+    pairs = []
+    
+    #collect ungapped pairs
+    for x in zip(seq1,seq2):
+        if '-' not in x: pairs.append(x)
+        
+    ts_count=0
+    tv_count=0
+    length = len(pairs)
+    
+    transitions = [ "AG", "GA", "CT", "TC"]
+    transversions = [ "AC", "CA", "AT", "TA",
+                      "GC", "CG", "GT", "TG" ]
+
+    for (x,y) in pairs:
+        if x+y in transitions: ts_count += 1 
+        elif x+y in transversions: tv_count += 1
+    
+    p = float(ts_count) / length
+    q = float(tv_count) / length
+    gc1 = sum(estimate_nucleotide_frequencies(seq1)[1:3])
+    gc2 = sum(estimate_nucleotide_frequencies(seq2)[1:3])
+    c = gc1 + gc2 - 2 * gc1 * gc2
+
+    try: d = -c * log( 1 - p/c - q) - 0.5 * ( 1 - c ) * log ( 1 - 2*q )
+    except ValueError: 
+        return None
+    return d
+
+#TAJIMA 
+def estimate_nucleotide_frequencies(seq):
+    seq = seq.replace('-','').upper()
+    A = seq.count('A')
+    C = seq.count('C')
+    G = seq.count('G')
+    T = seq.count('T')
+    length = float(len(seq))
+    return [ x/length for x in [A,C,G,T] ]
+
+def pdistance(seq1, seq2):
+    p = 0
+    pairs = []
+    for x in zip(seq1,seq2):
+        if '-' not in x: pairs.append(x)
+    #for (x,y) in zip(seq1,seq2):
+    for (x,y) in pairs:
+        if x != y:
+            p += 1
+    #length = (len(seq1) + len(seq2)) / 2
+    length = len(pairs)
+    return float(p) / length
+
+def TNdistance(seq1, seq2):
+    ns = ['A','C','G','T']
+    G = estimate_nucleotide_frequencies(seq1 + seq2)
+    p = pdistance(seq1,seq2)
+    pairs = []
+    h = 0
+
+    #collect ungapped pairs
+    for x in zip(seq1,seq2):
+        if '-' not in x: pairs.append(x)
+       
+    #pair frequencies are calculated for AC, AG, AT, CG, CT, GT (and reverse order)
+    for i in range(len(ns)-1):
+        for j in range(i+1,len(ns)):
+            if i != j: paircount = pairs.count( (ns[i], ns[j]) ) + pairs.count( (ns[j], ns[i]) )
+            Xij_sq = (float(paircount)/len(pairs))**2
+            GiGj = G[i]*G[j]
+            h += 0.5*Xij_sq/GiGj  #h value used to calculate b
+    
+    b = 0.5*(1-sum([x**2 for x in G])+p**2/h)
+    try: d = -b * log(1 - p/b)
+    except ValueError: 
+        return None
+    return d
+
+#UPGMA
+def lowest_cell(table):
+    
+    min_cell = float("inf")
+    x, y = -1, -1
+
+    for i in range(len(table)):
+        for j in range(len(table[i])):
+            if table[i][j] < min_cell:
+                min_cell = table[i][j]
+                x, y ,w= i, j,min_cell
+    return x, y,w
+
+
+
+def join_labels(labels, a, b,w):
+    
+    if b < a:
+        a, b = b, a
+    
+    labels[a]=labels[a]+":"+str(w/2)
+    labels[b]=labels[b]+":"+str(w/2)
+
+    labels[a] = "(" + labels[a] + "," + labels[b]+ " )"
+
+    del labels[b]
+
+
+def join_table(table, a, b):
+
+    if b < a:
+        a, b = b, a
+
+    row = []
+    for i in range(0, a):
+        row.append((table[a][i] + table[b][i])/2)
+    table[a] = row
+
+    for i in range(a+1, b):
+        table[i][a] = (table[i][a]+table[b][i])/2
+
+    for i in range(b+1, len(table)):
+        table[i][a] = (table[i][a]+table[i][b])/2
+
+        del table[i][b]
+    del table[b]
+
+
+
+def UPGMA(table, labels):
+
+    while len(labels) > 1:
+
+        x, y,w = lowest_cell(table)
+
+        join_table(table, x, y)
+        join_labels(labels, x, y,w)
+        #print(table)
+
+    return labels[0]
+
+
+
+def alpha_labels(start, end):
+    labels = []
+    for i in range(ord(start), ord(end)+1):
+        labels.append(chr(i))
+    return labels
+
+M_labels = alpha_labels("A", "D")   
+M = [[],[8],
+        [4, 8],
+        [6, 8, 6]]
+
+print(UPGMA(M, M_labels)) 
+
+
+#NEGIBOR JOINING
+def neighborjoining(dis_map, n, L):
+	if n==2:
+		print (dis_map)
+		return dis_map
+	else:
+		#calculate the r_i coefficients
+		r = {}
+		for (i,j) in dis_map:
+			r[i] = 0
+
+		for (i,j) in dis_map:
+			r[i] += float(1/(float(n-2)))*float(dis_map[(i,j)])
+
+		#calculate the Dij coefficients
+		D = {}
+		for (i,j) in dis_map:
+				D[(i,j)] = dis_map[(i,j)]-r[i]-r[j]
+
+		min_D = float('inf')
+		min_i = -1
+		min_j = -1
+		for (i,j) in D:
+			val = D[(i,j)]
+
+			if val < min_D and i!=j:
+				min_D = val
+				min_i = i
+				min_j = j
+
+		print (min_i+1, min_j+1, L+1)
+
+		new_dis_map = {}
+		k = L
+		for (i,j) in dis_map:
+			#print min_i,min_j, i ,j
+			if j==min_i or j==min_j:
+				pass
+			else:
+				new_dis_map[(k,j)] = .5 * float(dis_map[(min_i,j)]+dis_map[(min_j,j)]-dis_map[(min_i,min_j)])
+				new_dis_map[(j,k)] = new_dis_map[(k,j)]
+		new_dis_map[(k,k)] = 0
+
+		#remove min_i and min_j from dismap
+		for (i,j) in dis_map:
+			if i == min_i or j==min_j or i==min_j or j==min_i:
+				pass
+			else:
+				#print i,j,min_i,min_j
+				new_dis_map[(i,j)] = dis_map[(i,j)]
+
+		#print new_dis_map
+		d_ik = .5*float(dis_map[(min_i,min_j)] + r[min_i] - r[min_j])
+		d_jk = dis_map[(min_i,min_j)] - d_ik
+
+		print (d_ik, d_jk)
+
+		#print new_dis_map
+		neighborjoining(new_dis_map,n-1,L+1)
+
+"""dis_data = open('data.txt')
+
+dis_map = {}
+i = 0
+for line in dis_data:
+	split_line = line.split()
+	print (split_line)
+	for j in range(len(split_line)):
+		dis_map[(i,j)] = int(split_line[j])
+	i+=1
+dis_data.close()
+
+neighborjoining(dis_map, 8,8)"""
